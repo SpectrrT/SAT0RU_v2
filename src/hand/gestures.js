@@ -6,7 +6,7 @@
  * Supported gestures:
  *   'purple'     — OK sign (thumb + index pinched, middle/ring/pinky extended)
  *   'blackflash' — Middle finger only (middle up, others down)
- *   'shrine'     — Flat hand / all four fingers up
+ *   'shrine'     — Open hand / Prayer gesture (all four fingers extended, flat palm)
  *   'void'       — Index + Middle up, ring down
  *   'red'        — Index up only
  *   'neutral'    — Default / no clear gesture

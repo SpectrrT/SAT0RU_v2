@@ -34,14 +34,14 @@ npx serve .
 
 ## Gestures
 
-| Gesture | Technique | Description |
+| Technique | Gesture | Description |
 |---|---|---|
-| **OK sign** (thumb + index pinched, other 3 fingers up) | Secret Technique: Hollow Purple | Chaotic singularity sphere with purple bloom |
-| **Flat hand** (all four fingers up) | Domain Expansion: Malevolent Shrine | Blood floor, pillars, and domed roof |
-| **Index + Middle up** (ring down) | Domain Expansion: Infinite Void | Event-horizon ring with cosmos background |
-| **Index finger up** only | Cursed Technique Reversal: Red | Dense core with 3-arm spiral |
-| **Middle finger only** (middle up, others down) 🖕 | Black Flash *(NEW)* | Charge → impact flash → shockwave ring |
-| No hands / relaxed | Neutral State | Sparse ambient particles |
+| Secret Technique: Hollow Purple | **OK sign** (thumb + index pinched, other 3 fingers up) | Chaotic singularity sphere with purple bloom |
+| Domain Expansion: Malevolent Shrine | **Open hand / Prayer gesture** (all four fingers extended, flat palm) | Blood floor, pillars, and domed roof |
+| Domain Expansion: Infinite Void | **Index + Middle up** (ring down) | Event-horizon ring with cosmos background |
+| Cursed Technique Reversal: Red | **Index finger up** only | Dense core with 3-arm spiral |
+| Black Flash *(NEW)* | **Middle finger only** (middle up, others down) 🖕 | Charge → impact flash → shockwave ring |
+| Neutral State | No hands / relaxed | Sparse ambient particles |
 
 ### Black Flash — Timing Window
 
