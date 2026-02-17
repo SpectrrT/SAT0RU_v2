@@ -4,6 +4,28 @@ A desktop web app that uses your webcam and hand gestures to trigger cinematic *
 
 ![Demo GIF](https://github.com/user-attachments/assets/8ad2b871-02c0-4b97-95f3-34682e745be0)
 
+## ✨ Technique Showcase
+
+### 🟣 Secret Technique: Hollow Purple
+![Hollow Purple Demo](https://github.com/user-attachments/assets/your-purple-gif-here)
+*Gojo's ultimate attack — a chaotic singularity combining attraction and repulsion*
+
+### 🔴 Cursed Technique Reversal: Red  
+![Red Demo](https://github.com/user-attachments/assets/your-red-gif-here)
+*Violent repulsive force with a dense white-hot core*
+
+### 🟦 Domain Expansion: Infinite Void
+![Infinite Void Demo](https://github.com/user-attachments/assets/your-void-gif-here)
+*Gojo's domain — infinite information overload with bright event horizon*
+
+### ⛩️ Domain Expansion: Malevolent Shrine
+![Malevolent Shrine Demo](https://github.com/user-attachments/assets/your-shrine-gif-here)
+*Sukuna's domain — a dark, ominous shrine with intense screen shake*
+
+### ⚡ Black Flash *(NEW)*
+![Black Flash Demo](https://github.com/user-attachments/assets/your-blackflash-gif-here)
+*The ultimate critical hit — charge → impact → shockwave ring with perfect timing window*
+
 ---
 
 ## How to Run
