@@ -4,28 +4,6 @@ A desktop web app that uses your webcam and hand gestures to trigger cinematic *
 
 ![Demo GIF](https://github.com/user-attachments/assets/8ad2b871-02c0-4b97-95f3-34682e745be0)
 
-## ✨ Technique Showcase
-
-### 🟣 Secret Technique: Hollow Purple
-![Hollow Purple Demo](https://i.pinimg.com/originals/22/81/36/228136787949a85c103a630c753726aa.gif)
-*Gojo's ultimate attack — a chaotic singularity combining attraction and repulsion*
-
-### 🔴 Cursed Technique Reversal: Red  
-![Red Demo](https://media1.tenor.com/m/XXgQzeXDPZsAAAAd/reversed-cursed-technique-red.gif)
-*Violent repulsive force with a dense white-hot core*
-
-### 🟦 Domain Expansion: Infinite Void
-![Infinite Void Demo](https://images.steamusercontent.com/ugc/1649969427174159119/33DADD2747A91CA1EE60AAF61A7DD8E7CF753756/?imw=5000&imh=5000&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false)
-*Gojo's domain — infinite information overload with bright event horizon*
-
-### ⛩️ Domain Expansion: Malevolent Shrine
-![Malevolent Shrine Demo](https://giffiles.alphacoders.com/211/211826.gif)
-*Sukuna's domain — a dark, ominous shrine with intense screen shake*
-
-### ⚡ Black Flash *(NEW)*
-![Black Flash Demo](https://i.pinimg.com/originals/c3/be/c3/c3bec338a7c310c3f49abf3c8b50767f.gif)
-*The ultimate critical hit — charge → impact → shockwave ring with perfect timing window*
-
 ---
 
 ## How to Run
