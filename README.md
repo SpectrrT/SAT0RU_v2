@@ -40,7 +40,7 @@ npx serve .
 | Domain Expansion: Malevolent Shrine | **Open hand / Prayer gesture** (all four fingers extended, flat palm) | Blood floor, pillars, and domed roof |
 | Domain Expansion: Infinite Void | **Index + Middle up** (ring down) | Event-horizon ring with cosmos background |
 | Cursed Technique Reversal: Red | **Index finger up** only | Dense core with 3-arm spiral |
-| Simple Domain *(NEW)* | **Circle with both hands** ⭕ (index + thumb tips form ring) | Defensive barrier with glowing ring and shimmer |
+| Simple Domain *(NEW)* | **Rectangle with both hands**  (index + thumb tips form square) | Defensive barrier with glowing ring and shimmer |
 | Cleave *(NEW)* | **Pinky only** 🤙 (pinky up, others down) | Continuous invisible blade planes slash through with scar lines |
 | Black Flash *(NEW)* | **Middle finger only** (middle up, others down) 🖕 | Charge → impact flash → shockwave ring |
 | Neutral State | No hands / relaxed | Sparse ambient particles |
