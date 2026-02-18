@@ -11,6 +11,8 @@ import * as handTracking from './hand/hands.js';
 import { setGlowColor }  from './hand/gestures.js';
 import { techniques }    from './techniques/index.js';
 import * as blackflash   from './techniques/blackflash.js';
+import * as cleave       from './techniques/cleave.js';
+import * as simpledomain from './techniques/simpledomain.js';
 import { createPanel, settings } from './ui/panel.js';
 
 // ── State ──
@@ -32,8 +34,8 @@ function applyTechnique(name) {
     nameEl.style.textShadow = `0 0 10px ${tech.config.glowColor}`;
     setGlowColor(tech.config.glowColor);
 
-    // Black Flash manages its own bloom/shake/targets dynamically
-    if (name !== 'blackflash') {
+    // Black Flash, Cleave, and Simple Domain manage their own bloom/shake/targets dynamically
+    if (name !== 'blackflash' && name !== 'cleave' && name !== 'simpledomain') {
         renderer.setBloom(tech.config.bloomStrength * settings.bloomMultiplier);
         renderer.setShake(tech.config.shakeIntensity * (settings.shakeEnabled ? 1 : 0));
         renderer.cameraDolly(tech.config.cameraDolly * settings.techniqueIntensity);
@@ -66,6 +68,16 @@ function onGestureChange(gesture) {
         blackflash.reset();
     }
 
+    // If Cleave is active and gesture changes, reset it properly
+    if (currentTechnique === 'cleave' && gesture !== 'cleave') {
+        cleave.reset();
+    }
+
+    // If Simple Domain is active and gesture changes, immediately clean up
+    if (currentTechnique === 'simpledomain' && gesture !== 'simpledomain') {
+        simpledomain.cleanup();
+    }
+
     currentTechnique = gesture;
 
     if (gesture === 'blackflash') {
@@ -80,6 +92,26 @@ function onGestureChange(gesture) {
         setGlowColor('#ffffff');
     }
 
+    if (gesture === 'cleave') {
+        cleave.activate();
+        particles.clearVelocities(); // Start with clean slate
+        nameEl.innerText = 'Cleave';
+        nameEl.style.color = '#ff4444';
+        nameEl.style.textShadow = '0 0 15px #ff4444';
+        nameEl.style.fontSize = '1.2rem';
+        setGlowColor('#ff4444');
+        renderer.cameraDolly(-1 * settings.techniqueIntensity);
+    }
+
+    if (gesture === 'simpledomain') {
+        simpledomain.activate();
+        nameEl.innerText = 'Simple Domain';
+        nameEl.style.color = '#88ddff';
+        nameEl.style.textShadow = '0 0 15px #88ddff';
+        nameEl.style.fontSize = '1.2rem';
+        setGlowColor('#88ddff');
+    }
+
     applyTechnique(gesture);
 }
 
@@ -88,7 +120,7 @@ function onGestureChange(gesture) {
 function onSettingsChange() {
     renderer.setShakeEnabled(settings.shakeEnabled);
     // Re-apply current technique with new settings
-    if (currentTechnique !== 'blackflash') {
+    if (currentTechnique !== 'blackflash' && currentTechnique !== 'cleave' && currentTechnique !== 'simpledomain') {
         applyTechnique(currentTechnique);
     }
 }
@@ -190,8 +222,64 @@ function animate() {
         }
     }
 
+    // ── Cleave special handling ──
+    if (currentTechnique === 'cleave') {
+        cleave.updatePhase();
+        const cleaveState = cleave.getState();
+
+        // Animated phases: re-generate targets every frame (continuous while active)
+        if (cleaveState.phase === 'slicing' || cleaveState.phase === 'settle') {
+            particles.setActiveCount(settings.activeParticles);
+            particles.setTargets(cleave.generate);
+        }
+
+        // Apply plane-based impulses for active slices
+        if (cleaveState.phase === 'slicing' || cleaveState.phase === 'settle') {
+            const slices = cleave.getActiveSlices();
+            for (const slice of slices) {
+                particles.applyPlaneImpulse(
+                    slice.center,
+                    slice.normal,
+                    slice.strength * settings.techniqueIntensity,
+                    slice.width
+                );
+            }
+        }
+
+        // Dynamic bloom override
+        const bloomOvr = cleave.getBloomOverride();
+        if (bloomOvr !== null) {
+            renderer.bloomPass.strength = bloomOvr * settings.bloomMultiplier;
+        }
+
+        // Shake bursts on slice activation
+        if (cleave.shouldShake() && settings.shakeEnabled) {
+            renderer.setShake(0.5 * settings.techniqueIntensity);
+        }
+    }
+
+    // ── Simple Domain special handling ──
+    if (currentTechnique === 'simpledomain') {
+        simpledomain.updatePhase();
+        const sdState = simpledomain.getState();
+
+        // Animated phases: re-generate targets every frame
+        if (sdState.phase !== 'idle') {
+            particles.setActiveCount(settings.activeParticles);
+            particles.setTargets(simpledomain.generate);
+        }
+
+        // Set bloom during active phase
+        if (sdState.phase === 'growing' || sdState.phase === 'active') {
+            renderer.bloomPass.strength = 2.8 * settings.bloomMultiplier;
+        }
+    } else {
+        // Make absolutely sure Simple Domain visuals are hidden when not active
+        simpledomain.cleanup();
+    }
+
     // ── Continuous shake for all active techniques ──
-    if (tech && currentTechnique !== 'neutral' && currentTechnique !== 'blackflash' && settings.shakeEnabled) {
+    if (tech && currentTechnique !== 'neutral' && currentTechnique !== 'blackflash' && currentTechnique !== 'cleave' && currentTechnique !== 'simpledomain' && settings.shakeEnabled) {
         // Refresh shake every frame to keep it sustained (Black Flash handles its own shake dynamically)
         renderer.setShake(tech.config.shakeIntensity * settings.techniqueIntensity);
     }
@@ -203,9 +291,11 @@ function animate() {
 
     // ── Particle interpolation ──
     const isBlackFlash = currentTechnique === 'blackflash';
+    const isCleave = currentTechnique === 'cleave';
+    const isSimpleDomain = currentTechnique === 'simpledomain';
     const isImpact = isBlackFlash && blackflash.getState().phase === 'impact';
     const lerpFactor = isImpact ? 0.2 : 0.1;
-    particles.update(lerpFactor, isBlackFlash); // Only use velocity during Black Flash
+    particles.update(lerpFactor, isBlackFlash || isCleave); // Use velocity for Black Flash and Cleave
 
     // ── Renderer transitions + composite ──
     renderer.update();

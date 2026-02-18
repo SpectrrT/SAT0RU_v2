@@ -80,6 +80,56 @@ function applyImpulse(strength = 1.0) {
 }
 
 /**
+ * Apply a plane-based impulse (push particles away from a slicing plane).
+ * @param {Array} center - [x, y, z] center of the plane
+ * @param {Array} normal - [nx, ny, nz] normalized plane normal
+ * @param {number} strength - impulse strength
+ * @param {number} width - affected radius perpendicular to normal
+ */
+function applyPlaneImpulse(center, normal, strength, width) {
+    const [cx, cy, cz] = center;
+    const [nx, ny, nz] = normal;
+    
+    for (let i = 0; i < MAX_COUNT; i++) {
+        const px = positions[i * 3];
+        const py = positions[i * 3 + 1];
+        const pz = positions[i * 3 + 2];
+        
+        // Vector from center to particle
+        const dx = px - cx;
+        const dy = py - cy;
+        const dz = pz - cz;
+        
+        // Distance to plane (signed)
+        const dist = dx * nx + dy * ny + dz * nz;
+        
+        // Distance perpendicular to normal (in-plane distance)
+        const perpX = dx - dist * nx;
+        const perpY = dy - dist * ny;
+        const perpZ = dz - dist * nz;
+        const perpDist = Math.sqrt(perpX * perpX + perpY * perpY + perpZ * perpZ);
+        
+        // Only affect particles within the blade width
+        if (perpDist < width) {
+            // Falloff based on distance from plane
+            const falloff = Math.max(0, 1.0 - Math.abs(dist) / 15);
+            const widthFalloff = Math.max(0, 1.0 - perpDist / width);
+            const totalFalloff = falloff * widthFalloff;
+            
+            if (totalFalloff > 0.01) {
+                // Push particles perpendicular to the plane (away from slice)
+                const pushDir = dist > 0 ? 1 : -1;
+                const s = strength * totalFalloff * pushDir * (0.8 + Math.random() * 0.4);
+                
+                velocities[i * 3]     += nx * s;
+                velocities[i * 3 + 1] += ny * s;
+                velocities[i * 3 + 2] += nz * s;
+            }
+        }
+    }
+}
+
+/**
  * Per-frame lerp of positions, colors, sizes toward targets.
  * Also applies and decays velocity impulses.
  * @param {number} lerpFactor - interpolation speed (0-1)
@@ -127,6 +177,6 @@ function getMaxCount() {
 export {
     points, geometry, positions, colors, sizes,
     targetPositions, targetColors, targetSizes, velocities,
-    setActiveCount, setTargets, applyImpulse, update,
+    setActiveCount, setTargets, applyImpulse, applyPlaneImpulse, update,
     clearVelocities, getPoints, getMaxCount,
 };
