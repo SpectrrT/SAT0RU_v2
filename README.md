@@ -8,7 +8,7 @@ A desktop web app that uses your webcam and hand gestures to trigger cinematic *
 
 ## How to Run
 
-This is a **no-build** project. You just need a local HTTP server (ES modules require one).
+This is a **no-build** project. You just need a local HTTP server (ES modules require one)
 
 ### Option A — VS Code Live Server (easiest)
 1. Install the **Live Server** extension in VS Code / Cursor.
