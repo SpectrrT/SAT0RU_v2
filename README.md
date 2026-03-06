@@ -1,6 +1,6 @@
 # SAT0RU v2 — Cursed Technique Visualizer
 
-A desktop web app that uses your webcam and hand gestures to trigger cinematic **Jujutsu Kaisen** cursed techniques rendered with a 20,000-particle Three.js system, post-processing bloom, and MediaPipe hand tracking. No backend, no build step - just open and go.
+A desktop web app that uses your webcam and hand gestures to trigger cinematic **Jujutsu Kaisen** cursed techniques rendered with a 20,000-particle Three.js system, post-processing bloom, and MediaPipe hand tracking. No backend, no build step - just open and go
 
 ![Demo GIF](https://github.com/user-attachments/assets/8ad2b871-02c0-4b97-95f3-34682e745be0)
 
